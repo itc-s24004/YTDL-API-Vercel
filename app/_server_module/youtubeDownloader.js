@@ -1,5 +1,5 @@
 const path = require("path");
-const fs = require("fs");
+// const fs = require("fs");
 
 const ytdl = require("@distube/ytdl-core");
 const Ffmpeg = require("fluent-ffmpeg");
@@ -46,21 +46,21 @@ export class YoutubeDownloader {
 
     static async downloadAudio(YTID) {
 
-        const saveDir = path.join(this.#savePath, YTID);
+        // const saveDir = path.join(this.#savePath, YTID);
 
 
-        fs.mkdirSync(saveDir, {recursive: true});
+        // fs.mkdirSync(saveDir, {recursive: true});
         
-        const savePath = path.join(saveDir, `audio`);
+        // const savePath = path.join(saveDir, `audio`);
 
-        const stream = fs.createWriteStream(savePath);
+        // const stream = fs.createWriteStream(savePath);
         
-        ytdl(YTID, {quality: "highestaudio", requestCallback: () => {console.log("haaaaaaaaaaaaaaaaaaaaaaaaaa")}}).pipe(stream).on("close", () => {
-            stream.close();
+        // ytdl(YTID, {quality: "highestaudio", requestCallback: () => {console.log("haaaaaaaaaaaaaaaaaaaaaaaaaa")}}).pipe(stream).on("close", () => {
+        //     stream.close();
 
             
-            // Ffmpeg(savePath).setFfmpegPath(path.join(__dirname, "ffmpeg/win/bin/ffmpeg.exe")).save(path.join(__dirname, "output.mp3"))
-        })
+        //     // Ffmpeg(savePath).setFfmpegPath(path.join(__dirname, "ffmpeg/win/bin/ffmpeg.exe")).save(path.join(__dirname, "output.mp3"))
+        // })
     }
 }
 
