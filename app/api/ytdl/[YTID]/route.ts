@@ -56,7 +56,7 @@ export async function POST(request: Request) {
 
 
         const C = cookies.test
-        console.log(C)
+        // console.log(C)
 
         const info = await YoutubeDownloader.getInfo(YTID, C);
 
@@ -64,6 +64,7 @@ export async function POST(request: Request) {
 
         const audioFormats = info.formats.filter(data => data.hasAudio && !data.hasVideo && data.audioQuality == "AUDIO_QUALITY_MEDIUM")
 
+        console.log(audioFormats)
 
         
         // const params = url.searchParams;
