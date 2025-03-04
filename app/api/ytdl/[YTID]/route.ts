@@ -39,26 +39,32 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-    const cookies = await request.json()
+    try {
+        const cookies = await request.json()
 
-    console.log(cookies);
+        console.log(cookies);
 
-    // return NextResponse.json(reqJson);
-    const url = new URL(request.url);
+        // return NextResponse.json(reqJson);
+        const url = new URL(request.url);
 
-    const YTID = path.basename(url.pathname);
+        const YTID = path.basename(url.pathname);
 
-    const info = await YoutubeDownloader.getInfo(YTID, cookies);
+        const info = await YoutubeDownloader.getInfo(YTID, cookies);
 
-    // await YoutubeDownloader.downloadAudio(YTID)
+        // await YoutubeDownloader.downloadAudio(YTID)
 
-    const audioFormats = info.formats.filter(data => data.hasAudio && !data.hasVideo && data.audioQuality == "AUDIO_QUALITY_MEDIUM")
+        const audioFormats = info.formats.filter(data => data.hasAudio && !data.hasVideo && data.audioQuality == "AUDIO_QUALITY_MEDIUM")
 
 
-    
-    // const params = url.searchParams;
-    // const json = {YTID}
-    
-    // console.log(JSON.stringify(info, null, "    "));
-    return NextResponse.json(audioFormats, { status: 200 });
+        
+        // const params = url.searchParams;
+        // const json = {YTID}
+        
+        // console.log(JSON.stringify(info, null, "    "));
+        return NextResponse.json(audioFormats, { status: 200 });
+        
+    } catch {
+        return NextResponse.json([], {status: 200});
+
+    }
 }
