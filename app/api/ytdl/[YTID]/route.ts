@@ -40,29 +40,31 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
     try {
-        const cookies = await request.text()
+        const cookiesText = await request.text();
+
+        const cookies = JSON.parse(cookiesText).cookie;
 
         console.log(cookies);
-        return NextResponse.json([{url: "https://youtube.com"}], {status: 200});
+        // return NextResponse.json([{url: "https://youtube.com"}], {status: 200});
 
         // return NextResponse.json(reqJson);
-        // const url = new URL(request.url);
+        const url = new URL(request.url);
 
-        // const YTID = path.basename(url.pathname);
+        const YTID = path.basename(url.pathname);
 
-        // const info = await YoutubeDownloader.getInfo(YTID, cookies);
+        const info = await YoutubeDownloader.getInfo(YTID, cookies);
 
-        // // await YoutubeDownloader.downloadAudio(YTID)
+        // await YoutubeDownloader.downloadAudio(YTID)
 
-        // const audioFormats = info.formats.filter(data => data.hasAudio && !data.hasVideo && data.audioQuality == "AUDIO_QUALITY_MEDIUM")
+        const audioFormats = info.formats.filter(data => data.hasAudio && !data.hasVideo && data.audioQuality == "AUDIO_QUALITY_MEDIUM")
 
 
         
-        // // const params = url.searchParams;
-        // // const json = {YTID}
+        // const params = url.searchParams;
+        // const json = {YTID}
         
-        // // console.log(JSON.stringify(info, null, "    "));
-        // return NextResponse.json(audioFormats, { status: 200 });
+        // console.log(JSON.stringify(info, null, "    "));
+        return NextResponse.json(audioFormats, { status: 200 });
 
     } catch (error) {
         console.error(error)
