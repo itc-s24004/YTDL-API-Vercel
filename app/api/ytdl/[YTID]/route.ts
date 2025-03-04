@@ -54,9 +54,11 @@ export async function POST(request: Request) {
 
         const YTID = path.basename(url.pathname);
 
-        console.log(cookies.test)
 
-        const info = await YoutubeDownloader.getInfo(YTID, cookies.test);
+        const C = cookies.test
+        console.log(C)
+
+        const info = await YoutubeDownloader.getInfo(YTID, C);
 
         // await YoutubeDownloader.downloadAudio(YTID)
 
