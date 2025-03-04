@@ -41,9 +41,16 @@ export class YoutubeDownloader {
         // })
     }
 
+    /**
+     * 
+     * @param {*} YTID 
+     * @param {{domain: string}[]} cookies 
+     * @returns 
+     */
     static getInfo(YTID, cookies = []) {
-        console.log(cookies)
-        return ytdl.getInfo(YTID, {agent: ytdl.createAgent(cookies)})
+        const C = cookies.filter(e => e.domain == ".youtube.com")
+        // console.log(C)
+        return ytdl.getInfo(YTID, {agent: ytdl.createAgent(C)})
     }
 
     static async downloadAudio(YTID) {
