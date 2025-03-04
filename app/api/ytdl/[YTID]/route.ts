@@ -42,9 +42,9 @@ export async function POST(request: Request) {
     try {
         const cookiesText = await request.text();
 
-        const cookies = JSON.parse(cookiesText).cookie;
+        const C = JSON.parse(cookiesText).cookie;
 
-        console.log(cookies);
+        console.log(C);
         // return NextResponse.json([{url: "https://youtube.com"}], {status: 200});
 
         // return NextResponse.json(reqJson);
@@ -52,7 +52,7 @@ export async function POST(request: Request) {
 
         const YTID = path.basename(url.pathname);
 
-        const info = await YoutubeDownloader.getInfo(YTID, cookies);
+        const info = await YoutubeDownloader.getInfo(YTID, C);
 
         // await YoutubeDownloader.downloadAudio(YTID)
 
