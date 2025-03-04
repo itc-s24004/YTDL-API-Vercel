@@ -42,7 +42,7 @@ export async function POST(request: Request) {
     try {
         const cookiesText = await request.text();
 
-        console.log(cookiesText)
+        // console.log(cookiesText)
 
         const cookies = JSON.parse(cookiesText);
 
