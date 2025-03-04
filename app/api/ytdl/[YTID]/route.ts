@@ -63,7 +63,8 @@ export async function POST(request: Request) {
         // console.log(JSON.stringify(info, null, "    "));
         return NextResponse.json(audioFormats, { status: 200 });
 
-    } catch {
+    } catch (error) {
+        console.error(error)
         return NextResponse.json([{url: "https://ytdl-api-vercel.vercel.app/"}], {status: 200});
 
     }
