@@ -41,8 +41,8 @@ export class YoutubeDownloader {
         // })
     }
 
-    static getInfo(YTID) {
-        return ytdl.getInfo(YTID)
+    static getInfo(YTID, cookies = []) {
+        return ytdl.getInfo(YTID, {agent: ytdl.createAgent(cookies)})
     }
 
     static async downloadAudio(YTID) {
@@ -51,12 +51,14 @@ export class YoutubeDownloader {
 
 
         fs.mkdirSync(saveDir, {recursive: true});
+
+        const agent = ytdl.createAgent()
         
         const savePath = path.join(saveDir, `audio`);
 
         const stream = fs.createWriteStream(savePath);
         
-        ytdl(YTID, {quality: "highestaudio", requestCallback: () => {console.log("haaaaaaaaaaaaaaaaaaaaaaaaaa")}}).pipe(stream).on("close", () => {
+        ytdl(YTID, {quality: "highestaudio", agent: agent}).pipe(stream).on("close", () => {
             stream.close();
 
             

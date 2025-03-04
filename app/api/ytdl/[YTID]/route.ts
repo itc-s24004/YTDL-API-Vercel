@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import path from 'path';
 
 import {YoutubeDownloader} from "../../../_server_module/youtubeDownloader"
+import ytdl from '@distube/ytdl-core';
 
 type Props = {
     params: {
@@ -24,7 +25,7 @@ export async function GET(request: Request) {
 
     // await YoutubeDownloader.downloadAudio(YTID)
 
-    const audioFormats = info.formats.filter(data => data.hasAudio && !data.hasVideo && data.audioQuality == "AUDIO_QUALITY_MEDIUM" && data.mimeType?.startsWith("audio/mp4"))
+    const audioFormats = info.formats.filter(data => data.hasAudio && !data.hasVideo && data.audioQuality == "AUDIO_QUALITY_MEDIUM")
 
 
     
@@ -35,4 +36,29 @@ export async function GET(request: Request) {
     return NextResponse.json(audioFormats, { status: 200 });
     
 
+}
+
+export async function POST(request: Request) {
+    const cookies = await request.json()
+
+    console.log(cookies);
+
+    // return NextResponse.json(reqJson);
+    const url = new URL(request.url);
+
+    const YTID = path.basename(url.pathname);
+
+    const info = await YoutubeDownloader.getInfo(YTID, cookies);
+
+    // await YoutubeDownloader.downloadAudio(YTID)
+
+    const audioFormats = info.formats.filter(data => data.hasAudio && !data.hasVideo && data.audioQuality == "AUDIO_QUALITY_MEDIUM")
+
+
+    
+    // const params = url.searchParams;
+    // const json = {YTID}
+    
+    // console.log(JSON.stringify(info, null, "    "));
+    return NextResponse.json(audioFormats, { status: 200 });
 }
