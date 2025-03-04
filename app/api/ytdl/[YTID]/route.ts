@@ -42,9 +42,9 @@ export async function POST(request: Request) {
     try {
         const cookiesText = await request.text();
 
-        // const cookies = JSON.parse(cookiesText).cookie;
+        const cookies = JSON.parse(cookiesText).cookie;
 
-        console.log(cookiesText);
+        console.log(cookies);
         return NextResponse.json([{url: "https://youtube.com"}], {status: 200});
 
         // return NextResponse.json(reqJson);
