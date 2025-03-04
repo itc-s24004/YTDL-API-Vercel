@@ -42,6 +42,7 @@ export class YoutubeDownloader {
     }
 
     static getInfo(YTID, cookies = []) {
+        console.log(cookies)
         return ytdl.getInfo(YTID, {agent: ytdl.createAgent(cookies)})
     }
 

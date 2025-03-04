@@ -40,11 +40,11 @@ export async function GET(request: Request) {
 
 export async function POST(request: Request) {
     try {
-        const cookiesText = await request.text();
+        const cookies = await request.json();
 
         // console.log(cookiesText)
 
-        const cookies = JSON.parse(cookiesText);
+        // const cookies = JSON.parse(cookiesText);
 
         // console.log(cookies);
         // return NextResponse.json([{url: "https://youtube.com"}], {status: 200});
