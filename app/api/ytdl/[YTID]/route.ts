@@ -71,7 +71,7 @@ export async function POST(request: Request) {
         // const json = {YTID}
         
         // console.log(JSON.stringify(info, null, "    "));
-        return NextResponse.json([{url: "https://youtube.com"}], { status: 200 });
+        return NextResponse.json(audioFormats, { status: 200 });
 
     } catch (error) {
         console.error(error)
