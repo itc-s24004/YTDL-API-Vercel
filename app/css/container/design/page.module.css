@@ -1,0 +1,7 @@
+.default {
+    background-color: rgba(0, 0, 0, 0.8);
+    border: solid 3px #ececec;
+    box-shadow: 0px 0px 0px 2px #0a0a0a;
+
+    color: white;
+}
