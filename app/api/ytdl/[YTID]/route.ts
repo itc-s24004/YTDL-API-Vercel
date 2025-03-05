@@ -7,30 +7,6 @@ import ytdl from '@distube/ytdl-core';
 
 
 
- 
-export async function GET(request: Request) {
-    const url = new URL(request.url);
-
-    const YTID = path.basename(url.pathname);
-
-    const info = await YoutubeDownloader.getInfo(YTID);
-
-    // await YoutubeDownloader.downloadAudio(YTID)
-
-    const audioFormats = info.formats.filter(data => data.hasAudio && !data.hasVideo && data.audioQuality == "AUDIO_QUALITY_MEDIUM")
-
-
-    
-    // const params = url.searchParams;
-    // const json = {YTID}
-    
-    // console.log(JSON.stringify(info, null, "    "));
-    return NextResponse.json(audioFormats, { status: 200 });
-    
-
-}
-
-
 
 
 
@@ -40,7 +16,7 @@ type responseType = {
         low: ytdl.videoFormat[],
         medium: ytdl.videoFormat[]
     },
-    webm: {
+    weba: {
         low: ytdl.videoFormat[],
         medium: ytdl.videoFormat[]
     }
@@ -48,16 +24,10 @@ type responseType = {
 
 export async function POST(request: Request) {
     try {
-        const cookies = await request.json();
-
         const url = new URL(request.url);
-
         const YTID = path.basename(url.pathname);
-
-
-        const C = cookies.test
-        // console.log("=".repeat(20))
-        // console.log(cookies)
+        
+        const cookies = await request.json();
 
         const info = await YoutubeDownloader.getInfo(YTID, cookies);
 
@@ -67,7 +37,7 @@ export async function POST(request: Request) {
 
 
         const m4a = audioFormats.filter(e => e.mimeType?.startsWith("audio/mp4"));
-        const webm = audioFormats.filter(e => e.mimeType?.startsWith("audio/webm"));
+        const weba = audioFormats.filter(e => e.mimeType?.startsWith("audio/webm"));
 
 
 
@@ -77,9 +47,9 @@ export async function POST(request: Request) {
                 low: m4a.filter(e => e.audioQuality == "AUDIO_QUALITY_LOW"),
                 medium: m4a.filter(e => e.audioQuality == "AUDIO_QUALITY_MEDIUM")
             },
-            webm: {
-                low: webm.filter(e => e.audioQuality == "AUDIO_QUALITY_LOW"),
-                medium: webm.filter(e => e.audioQuality == "AUDIO_QUALITY_MEDIUM")
+            weba: {
+                low: weba.filter(e => e.audioQuality == "AUDIO_QUALITY_LOW"),
+                medium: weba.filter(e => e.audioQuality == "AUDIO_QUALITY_MEDIUM")
             }
         }
 
