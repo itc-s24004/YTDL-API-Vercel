@@ -33,7 +33,7 @@ export async function POST(request: Request) {
 
         const audioFormats = info.formats.filter(data => data.hasAudio && !data.hasVideo);
 
-        // console.log(JSON.stringify(audioFormats, null, "   "));
+        console.log(cookies);
 
 
         const m4a = audioFormats.filter(e => e.mimeType?.startsWith("audio/mp4"));
