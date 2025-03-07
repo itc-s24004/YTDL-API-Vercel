@@ -31,9 +31,7 @@ export async function POST(request: Request) {
 
         const info = await YoutubeDownloader.getInfo(YTID, cookies);
 
-        const audioFormats = info.formats.filter(data => data.hasAudio && !data.hasVideo);
-
-        console.log(cookies);
+        const audioFormats = info.formats.filter(data => data.mimeType?.startsWith("audio"));
 
 
         const m4a = audioFormats.filter(e => e.mimeType?.startsWith("audio/mp4"));
